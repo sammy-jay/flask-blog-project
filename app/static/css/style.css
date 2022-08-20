@@ -156,8 +156,6 @@
   display: flex;
   flex-direction: column;
 }
-.create_post_page .create_post .input-box {
-}
 
 /* Generated Styles */
 *,
@@ -553,7 +551,6 @@ embed,
 object {
   display: block;
   /* 1 */
-  vertical-align: middle;
   /* 2 */
 }
 
