@@ -17,7 +17,9 @@
   font-weight: 500;
   font-size: 32px;
 }
-
+.navbar ul {
+  display: inline;
+}
 .navbar li {
   padding: 7px 12px;
   outline: none;
@@ -27,6 +29,10 @@
   font-size: 19px;
   display: inline-block;
   cursor: pointer;
+}
+
+.navbar li.user_display span:nth-child(1) {
+  font-weight: bold;
 }
 .navbar li:nth-child(1) {
   margin-right: 1rem;
@@ -42,34 +48,43 @@
   flex-direction: column;
   gap: 10px;
 }
-.register h2 {
+.register h2,
+.blog_articles h2,
+.create_post_page h2 {
   font-weight: 400;
   font-size: 28px;
   margin-bottom: 1.5rem;
 }
-.register .input-box {
+.register .input-box,
+.create_post_page .create_post .input-box {
   background: transparent;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-.register .input-box label {
+.register .input-box label,
+.create_post_page .create_post .input-box label {
   display: block;
   font-size: 18px;
 }
-.register .input-box input {
+.register .input-box input,
+.create_post_page .create_post .input-box input,
+.create_post_page .create_post .input-box textarea {
   padding: 5px 7px;
   outline: none;
   border: none;
   background-color: #fff;
   border-radius: 4px;
 }
-.register p {
+.register p,
+.create_post_page .create_post p {
   color: red;
   font-size: 13px;
 }
-.register input[type="submit"] {
+.register input[type="submit"],
+.blog_articles .new_post,
+.create_post_page .create_post input[type="submit"] {
   padding: 7px 12px;
   outline: none;
   border: none;
@@ -79,6 +94,71 @@
   cursor: pointer;
   margin-top: 1rem;
 }
+.blog_articles {
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 5px;
+  max-width: 450px;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.blog_articles h2,
+.create_post_page h2 {
+  font-weight: 500;
+}
+.blog_articles .new_post {
+  width: max-content;
+  align-self: flex-end;
+}
+.blog_articles .article {
+  background: #fff;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.blog_articles .article h1 {
+  font-weight: 400;
+  font-size: 21px;
+  margin-bottom: 2px;
+}
+.blog_articles .article p {
+  font-size: 17px;
+}
+.blog_articles .article .op_btns {
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.blog_articles .article .op_btns span:nth-child(1) {
+  color: blue;
+  margin-right: 10px;
+}
+.blog_articles .article .op_btns span:nth-child(2) {
+  color: red;
+}
+
+.create_post_page {
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 5px;
+  max-width: 450px;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+}
+.create_post_page .create_post {
+  display: flex;
+  flex-direction: column;
+}
+.create_post_page .create_post .input-box {
+}
+
 /* Generated Styles */
 *,
 ::before,

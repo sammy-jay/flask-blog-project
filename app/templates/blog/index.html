@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock title %} {% block
+content %}
+<section class="blog_articles">
+  {% if g.user %}
+  <div class="new_post">
+    <a href="{{url_for('blog.create')}}">New Post</a>
+  </div>
+  {% endif %}
+
+  <h2>All Posts</h2>
+
+  {% for post in posts %}
+  <article class="article">
+    <h1>{{post.title}}</h1>
+    <p>{{post.body[:120]}}...</p>
+    {% if g.user['id'] == post['author_id'] %}
+    <div class="op_btns">
+      <span>edit</span>
+      <span>delete</span>
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+</section>
+
+{% endblock content %}

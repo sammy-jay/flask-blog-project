@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %}Create New Post{% endblock title %}
+{% block content %}
+<section class="create_post_page">
+  <h2>Create New Post</h2>
+
+  <article class="create_post">
+    <form method="POST">
+      <div class="input-box">
+        <label for="title">Post Title</label>
+        <input type="text" id="title" name="title" />
+      </div>
+      <div class="input-box">
+        <label for="body">Post Body</label>
+        <textarea name="body" id="body" rows="10"></textarea>
+      </div>
+      {% for message in get_flashed_messages() %}
+      <p>{{ message }}</p>
+      {% endfor %}
+      <input type="submit" value="Create Post" />
+    </form>
+  </article>
+</section>
+
+{% endblock content %}
