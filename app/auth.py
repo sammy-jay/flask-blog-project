@@ -1,4 +1,3 @@
-from contextlib import redirect_stderr
 import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -19,6 +18,8 @@ def register():
 
         if not username or not password:
             error = "Invalid credentials"
+        elif len(password) < 5:
+            error = "Password must be greater than 5 characters"
         elif db.execute(
             'SELECT id FROM user WHERE username = ?',(username,)
         ).fetchone() is not None:
@@ -50,14 +51,42 @@ def login():
         
         if user is None: 
             error = "Invalid credentials"    
-        elif not check_password_hash(user.get('password'), password):
+        elif not check_password_hash(user['password'], password):
             error = "Invalid credentials"
         
         if error is None:
             session.clear()
-            session['user_id'] = user.get('id')
+            session['user_id'] = user['id']
             return redirect(url_for('index'))
         
         flash(error)
         
     return render_template('auth/login.html')
+
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+
+@bp.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        return view(**kwargs)
+    return wrapped_view
+
