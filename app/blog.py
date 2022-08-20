@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 from werkzeug.exceptions import abort
 
@@ -28,14 +29,15 @@ def create():
         if not title or not body:
             error = "Fields are compulsory"
 
-        author_id = g.user['id']
-        if author_id:
-            db.execute(
-                'INSERT INTO post (author_id, title, body) VALUES (?, ?, ?)',
-                (author_id, title, body)
-            )
-            db.commit()
-            return redirect(url_for('index'))
+        if error is None:
+            author_id = g.user['id']
+            if author_id:
+                db.execute(
+                    'INSERT INTO post (author_id, title, body) VALUES (?, ?, ?)',
+                    (author_id, title, body)
+                )
+                db.commit()
+                return redirect(url_for('index'))
 
         flash(error)
 
